@@ -8,14 +8,24 @@ package Project;
  *
  * @author Adam
  */
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 public class Interface extends javax.swing.JFrame {
 
     /**
      * Creates new form Interface
      */
+    public List fields = new ArrayList();
     public Interface() {
         initComponents();
         workingScreen.setVisible(false);
+        massField.setEditable(false);
+        massField.setBackground(Color.GRAY);
+        
+        fields.add(massField);
+        
+        
     }
 
     /**
@@ -27,13 +37,14 @@ public class Interface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        slippingDirectionButtonGroup = new javax.swing.ButtonGroup();
         inputScreen = new javax.swing.JLayeredPane();
         closeButton2 = new javax.swing.JButton();
         diagram = new javax.swing.JLabel();
         titleLabel2 = new javax.swing.JLabel();
         slippingDirectionLabel2 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        downButton = new javax.swing.JRadioButton();
+        upButton = new javax.swing.JRadioButton();
         accelerationLabel2 = new javax.swing.JLabel();
         accelerationField = new javax.swing.JTextField();
         massField = new javax.swing.JTextField();
@@ -117,13 +128,15 @@ public class Interface extends javax.swing.JFrame {
         slippingDirectionLabel2.setBounds(250, 120, 120, 30);
         inputScreen.add(slippingDirectionLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jRadioButton3.setText("Down");
-        jRadioButton3.setBounds(420, 120, 70, 23);
-        inputScreen.add(jRadioButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        slippingDirectionButtonGroup.add(downButton);
+        downButton.setText("Down");
+        downButton.setBounds(420, 120, 70, 23);
+        inputScreen.add(downButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jRadioButton4.setText("Up");
-        jRadioButton4.setBounds(380, 120, 40, 23);
-        inputScreen.add(jRadioButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        slippingDirectionButtonGroup.add(upButton);
+        upButton.setText("Up");
+        upButton.setBounds(380, 120, 40, 23);
+        inputScreen.add(upButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         accelerationLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         accelerationLabel2.setText("Acceleration");
@@ -193,6 +206,11 @@ public class Interface extends javax.swing.JFrame {
         inputScreen.add(submitButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
         clearButton.setBounds(10, 350, 170, 60);
         inputScreen.add(clearButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -203,6 +221,11 @@ public class Interface extends javax.swing.JFrame {
         inputScreen.add(massLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         valueToCalculateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mass", "Force", "Acceleration", "µ", "θ", "Friction Force", "Reaction", "Weight" }));
+        valueToCalculateComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valueToCalculateComboBoxActionPerformed(evt);
+            }
+        });
         valueToCalculateComboBox.setBounds(370, 70, 120, 30);
         inputScreen.add(valueToCalculateComboBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -410,11 +433,11 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButton2ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_closeButton2ActionPerformed
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -423,9 +446,33 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        
         workingScreen.setVisible(true);
         inputScreen.setVisible(false);
+        System.out.println(fields.get(0).toString());
+        
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void valueToCalculateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valueToCalculateComboBoxActionPerformed
+        String valueToCalculate = valueToCalculateComboBox.getSelectedItem().toString();
+        reset();
+        switch (valueToCalculate){
+            case "Mass": massField.setEditable(false);massField.setBackground(Color.GRAY);break;
+            case "Force": forceField.setEditable(false);forceField.setBackground(Color.GRAY);break;
+            case "Acceleration": accelerationField.setEditable(false);accelerationField.setBackground(Color.GRAY);break;
+            case "µ": fcField.setEditable(false);fcField.setBackground(Color.GRAY);break;   
+            case "θ": angleField.setEditable(false);angleField.setBackground(Color.GRAY);break; 
+            case "Friction Force": frictionForceField.setEditable(false);frictionForceField.setBackground(Color.GRAY);break;   
+            case "Reaction": reactionField.setEditable(false);reactionField.setBackground(Color.GRAY);break;
+            case "Weight": weightField.setEditable(false);weightField.setBackground(Color.GRAY);break;     
+        }
+    }//GEN-LAST:event_valueToCalculateComboBoxActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        reset();
+        valueToCalculateComboBox.setSelectedItem("Mass");
+        slippingDirectionButtonGroup.clearSelection();
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -461,6 +508,33 @@ public class Interface extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void reset(){
+        massField.setEditable(true);
+        massField.setBackground(Color.WHITE);
+        massField.setText("");
+        forceField.setEditable(true);
+        forceField.setBackground(Color.WHITE);
+        forceField.setText("");
+        accelerationField.setEditable(true);
+        accelerationField.setBackground(Color.WHITE);
+        accelerationField.setText("");
+        fcField.setEditable(true);
+        fcField.setBackground(Color.WHITE);
+        fcField.setText("");
+        angleField.setEditable(true);
+        angleField.setBackground(Color.WHITE);
+        angleField.setText("");
+        frictionForceField.setEditable(true);
+        frictionForceField.setBackground(Color.WHITE);
+        frictionForceField.setText("");
+        reactionField.setEditable(true);
+        reactionField.setBackground(Color.WHITE);
+        reactionField.setText("");
+        weightField.setEditable(true);
+        weightField.setBackground(Color.WHITE);
+        weightField.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Step1Label;
     private javax.swing.JTextField accelerationField;
@@ -478,6 +552,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton closeButton;
     private javax.swing.JButton closeButton2;
     private javax.swing.JLabel diagram;
+    private javax.swing.JRadioButton downButton;
     private javax.swing.JButton explain1Button;
     private javax.swing.JButton explain2Button;
     private javax.swing.JTextField fcField;
@@ -493,8 +568,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel frictionForceLabel2;
     private javax.swing.JLabel frictionForceValueLabel;
     private javax.swing.JLayeredPane inputScreen;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JTextField massField;
     private javax.swing.JLabel massLabel;
     private javax.swing.JLabel massLabel2;
@@ -503,6 +576,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel reactionLabel;
     private javax.swing.JLabel reactionLabel2;
     private javax.swing.JLabel reactionValueLabel;
+    private javax.swing.ButtonGroup slippingDirectionButtonGroup;
     private javax.swing.JLabel slippingDirectionLabel;
     private javax.swing.JLabel slippingDirectionLabel2;
     private javax.swing.JLabel slippingDirectionValueLabel;
@@ -510,6 +584,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel titleLabel2;
+    private javax.swing.JRadioButton upButton;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JComboBox valueToCalculateComboBox;
     private javax.swing.JLabel valueToCalculateLabel;

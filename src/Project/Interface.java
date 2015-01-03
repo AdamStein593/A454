@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 public class Interface extends javax.swing.JFrame {
 
@@ -458,60 +459,62 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        
+        colourReset();
+        alteringValueToCalculateField(valueToCalculateComboBox.getSelectedItem().toString());
         boolean valid=true; 
         String alert="";
+        int counter=-1;
         for (JTextField field : fields){
+            counter++;
             if (field.isEditable()==true){
                 if (field.getText().equals("")){
                     field.setBackground(Color.RED);
-                    System.out.println("Error: empty");
+                    alert+="The "+ fieldName(counter)+ " field is empty \n";
                     valid =false;
+                    
+                    
                 }
                 else if (Double.parseDouble(field.getText())<0){
                     field.setBackground(Color.RED);
-                    System.out.println("Error: <0");
+                    alert+="The "+ fieldName(counter)+ " field is less than 0 \n";
                     valid =false;
                 }
             }    
         }
         if (!fcField.getText().equals("") && fcField.isEditable() && Double.parseDouble(fcField.getText())>=1){
             fcField.setBackground(Color.RED);
-            System.out.println("fc too big");
+            alert+="µ is greater than 1\n";
             valid = false;
         }
         
         if (!angleField.getText().equals("") && angleField.isEditable() && Double.parseDouble(angleField.getText())>=90){
             angleField.setBackground(Color.RED);
-            System.out.println("angle too big");
+            alert+="θ is greater than 90 degrees\n";
             valid = false;
         }
         if (slippingDirectionButtonGroup.isSelected(null)){
             valid= false;
-            System.out.println("select button");
+            alert+="A slipping direction has not been selected\n";
         }
+        
+        
         if (valid==true){
             Question question = new Question(fields,valueToCalculateComboBox);
             workingScreen.setVisible(true);
             inputScreen.setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog (null, alert ); 
         }
        
         
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void valueToCalculateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valueToCalculateComboBoxActionPerformed
-        String valueToCalculate = valueToCalculateComboBox.getSelectedItem().toString();
+        String valueToCalculate = valueToCalculateComboBox.getSelectedItem().toString();       
         reset();
-        switch (valueToCalculate){
-            case "Mass": massField.setEditable(false);massField.setBackground(Color.GRAY);break;
-            case "Force": forceField.setEditable(false);forceField.setBackground(Color.GRAY);break;
-            case "Acceleration": accelerationField.setEditable(false);accelerationField.setBackground(Color.GRAY);break;
-            case "µ": fcField.setEditable(false);fcField.setBackground(Color.GRAY);break;   
-            case "θ": angleField.setEditable(false);angleField.setBackground(Color.GRAY);break; 
-            case "Friction Force": frictionForceField.setEditable(false);frictionForceField.setBackground(Color.GRAY);break;   
-            case "Reaction": reactionField.setEditable(false);reactionField.setBackground(Color.GRAY);break;
-            case "Weight": weightField.setEditable(false);weightField.setBackground(Color.GRAY);break;     
-        }
+        alteringValueToCalculateField(valueToCalculate);
+        
     }//GEN-LAST:event_valueToCalculateComboBoxActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
@@ -556,30 +559,54 @@ public class Interface extends javax.swing.JFrame {
     }
     
     public void reset(){
-        massField.setEditable(true);
-        massField.setBackground(Color.WHITE);
-        massField.setText("");
-        forceField.setEditable(true);
-        forceField.setBackground(Color.WHITE);
-        forceField.setText("");
-        accelerationField.setEditable(true);
-        accelerationField.setBackground(Color.WHITE);
-        accelerationField.setText("");
-        fcField.setEditable(true);
-        fcField.setBackground(Color.WHITE);
-        fcField.setText("");
-        angleField.setEditable(true);
-        angleField.setBackground(Color.WHITE);
-        angleField.setText("");
-        frictionForceField.setEditable(true);
-        frictionForceField.setBackground(Color.WHITE);
-        frictionForceField.setText("");
-        reactionField.setEditable(true);
-        reactionField.setBackground(Color.WHITE);
-        reactionField.setText("");
-        weightField.setEditable(true);
-        weightField.setBackground(Color.WHITE);
-        weightField.setText("");
+        colourReset();
+        editableReset();
+        textReset();
+    }
+    
+    public void colourReset(){
+        for (JTextField field : fields){
+            field.setBackground(Color.WHITE);
+        }
+    }
+    
+    private void editableReset(){
+        for (JTextField field : fields){
+            field.setEditable(true);
+        }
+    }
+    
+    public void textReset(){
+        for (JTextField field : fields){
+            field.setText("");
+        }
+    }
+    
+    private void alteringValueToCalculateField(String valueToCalculate){
+        switch (valueToCalculate){
+            case "Mass": massField.setEditable(false);massField.setBackground(Color.GRAY);break;
+            case "Force": forceField.setEditable(false);forceField.setBackground(Color.GRAY);break;
+            case "Acceleration": accelerationField.setEditable(false);accelerationField.setBackground(Color.GRAY);break;
+            case "µ": fcField.setEditable(false);fcField.setBackground(Color.GRAY);break;   
+            case "θ": angleField.setEditable(false);angleField.setBackground(Color.GRAY);break; 
+            case "Friction Force": frictionForceField.setEditable(false);frictionForceField.setBackground(Color.GRAY);break;   
+            case "Reaction": reactionField.setEditable(false);reactionField.setBackground(Color.GRAY);break;
+            case "Weight": weightField.setEditable(false);weightField.setBackground(Color.GRAY);break;     
+        }
+    }
+    
+    public String fieldName(int index){
+        switch(index){
+            case 0: return "Mass";
+            case 1: return "Force";
+            case 2: return "Acceleration";
+            case 3: return "µ";
+            case 4: return "θ";
+            case 5: return "Friction Force";
+            case 6: return "Reaction";
+            case 7: return "Weight";                
+        }
+        return "error";
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Step1Label;

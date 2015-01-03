@@ -486,6 +486,10 @@ public class Interface extends javax.swing.JFrame {
             System.out.println("angle too big");
             valid = false;
         }
+        if (slippingDirectionButtonGroup.isSelected(null)){
+            valid= false;
+            System.out.println("select button");
+        }
         if (valid==true){
             Question question = new Question(fields,valueToCalculateComboBox);
             workingScreen.setVisible(true);

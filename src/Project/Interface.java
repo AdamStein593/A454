@@ -452,14 +452,46 @@ public class Interface extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         workingScreen.setVisible(false);
         inputScreen.setVisible(true);
+        reset();
+        valueToCalculateComboBox.setSelectedItem("Mass");
+        slippingDirectionButtonGroup.clearSelection();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        workingScreen.setVisible(true);
-        inputScreen.setVisible(false);
         
-        Question question = new Question(fields,valueToCalculateComboBox);
+        boolean valid=true; 
+        String alert="";
+        for (JTextField field : fields){
+            if (field.isEditable()==true){
+                if (field.getText().equals("")){
+                    field.setBackground(Color.RED);
+                    System.out.println("Error: empty");
+                    valid =false;
+                }
+                else if (Double.parseDouble(field.getText())<0){
+                    field.setBackground(Color.RED);
+                    System.out.println("Error: <0");
+                    valid =false;
+                }
+            }    
+        }
+        if (!fcField.getText().equals("") && fcField.isEditable() && Double.parseDouble(fcField.getText())>=1){
+            fcField.setBackground(Color.RED);
+            System.out.println("fc too big");
+            valid = false;
+        }
         
+        if (!angleField.getText().equals("") && angleField.isEditable() && Double.parseDouble(angleField.getText())>=90){
+            angleField.setBackground(Color.RED);
+            System.out.println("angle too big");
+            valid = false;
+        }
+        if (valid==true){
+            Question question = new Question(fields,valueToCalculateComboBox);
+            workingScreen.setVisible(true);
+            inputScreen.setVisible(false);
+        }
+       
         
     }//GEN-LAST:event_submitButtonActionPerformed
 

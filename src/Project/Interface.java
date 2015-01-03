@@ -459,52 +459,56 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        colourReset();
-        alteringValueToCalculateField(valueToCalculateComboBox.getSelectedItem().toString());
-        boolean valid=true; 
-        String alert="";
-        int counter=-1;
-        for (JTextField field : fields){
-            counter++;
-            if (field.isEditable()==true){
-                if (field.getText().equals("")){
-                    field.setBackground(Color.RED);
-                    alert+="The "+ fieldName(counter)+ " field is empty \n";
-                    valid =false;
-                    
-                    
-                }
-                else if (Double.parseDouble(field.getText())<0){
-                    field.setBackground(Color.RED);
-                    alert+="The "+ fieldName(counter)+ " field is less than 0 \n";
-                    valid =false;
-                }
-            }    
-        }
-        if (!fcField.getText().equals("") && fcField.isEditable() && Double.parseDouble(fcField.getText())>=1){
-            fcField.setBackground(Color.RED);
-            alert+="µ is greater than 1\n";
-            valid = false;
-        }
-        
-        if (!angleField.getText().equals("") && angleField.isEditable() && Double.parseDouble(angleField.getText())>=90){
-            angleField.setBackground(Color.RED);
-            alert+="θ is greater than 90 degrees\n";
-            valid = false;
-        }
-        if (slippingDirectionButtonGroup.isSelected(null)){
-            valid= false;
-            alert+="A slipping direction has not been selected\n";
-        }
-        
-        
-        if (valid==true){
-            Question question = new Question(fields,valueToCalculateComboBox);
-            workingScreen.setVisible(true);
-            inputScreen.setVisible(false);
-        }
-        else{
-            JOptionPane.showMessageDialog (null, alert ); 
+        try{
+            colourReset();
+            alteringValueToCalculateField(valueToCalculateComboBox.getSelectedIndex());
+            boolean valid=true; 
+            String alert="";
+            int counter=-1;
+            for (JTextField field : fields){
+                counter++;
+                if (field.isEditable()==true){
+                    if (field.getText().equals("")){
+                        field.setBackground(Color.RED);
+                        alert+="The "+ fieldName(counter)+ " field is empty \n";
+                        valid =false;
+
+
+                    }
+                    else if (Double.parseDouble(field.getText())<0){
+                        field.setBackground(Color.RED);
+                        alert+="The "+ fieldName(counter)+ " field is less than 0 \n";
+                        valid =false;
+                    }
+                }    
+            }
+            if (!fcField.getText().equals("") && fcField.isEditable() && Double.parseDouble(fcField.getText())>=1){
+                fcField.setBackground(Color.RED);
+                alert+="µ is greater than 1\n";
+                valid = false;
+            }
+
+            if (!angleField.getText().equals("") && angleField.isEditable() && Double.parseDouble(angleField.getText())>=90){
+                angleField.setBackground(Color.RED);
+                alert+="θ is greater than 90 degrees\n";
+                valid = false;
+            }
+            if (slippingDirectionButtonGroup.isSelected(null)){
+                valid= false;
+                alert+="A slipping direction has not been selected\n";
+            }
+
+
+            if (valid==true){
+                Question question = new Question(fields,valueToCalculateComboBox);
+                workingScreen.setVisible(true);
+                inputScreen.setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog (null, alert ); 
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog (null, "Invalid characters entered on form" ); 
         }
        
         
@@ -513,7 +517,8 @@ public class Interface extends javax.swing.JFrame {
     private void valueToCalculateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valueToCalculateComboBoxActionPerformed
         String valueToCalculate = valueToCalculateComboBox.getSelectedItem().toString();       
         reset();
-        alteringValueToCalculateField(valueToCalculate);
+        int index =valueToCalculateComboBox.getSelectedIndex();
+        alteringValueToCalculateField(index);
         
     }//GEN-LAST:event_valueToCalculateComboBoxActionPerformed
 
@@ -582,17 +587,9 @@ public class Interface extends javax.swing.JFrame {
         }
     }
     
-    private void alteringValueToCalculateField(String valueToCalculate){
-        switch (valueToCalculate){
-            case "Mass": massField.setEditable(false);massField.setBackground(Color.GRAY);break;
-            case "Force": forceField.setEditable(false);forceField.setBackground(Color.GRAY);break;
-            case "Acceleration": accelerationField.setEditable(false);accelerationField.setBackground(Color.GRAY);break;
-            case "µ": fcField.setEditable(false);fcField.setBackground(Color.GRAY);break;   
-            case "θ": angleField.setEditable(false);angleField.setBackground(Color.GRAY);break; 
-            case "Friction Force": frictionForceField.setEditable(false);frictionForceField.setBackground(Color.GRAY);break;   
-            case "Reaction": reactionField.setEditable(false);reactionField.setBackground(Color.GRAY);break;
-            case "Weight": weightField.setEditable(false);weightField.setBackground(Color.GRAY);break;     
-        }
+    private void alteringValueToCalculateField(int index){
+       fields.get(index).setEditable(false);
+       fields.get(index).setBackground(Color.GRAY);
     }
     
     public String fieldName(int index){

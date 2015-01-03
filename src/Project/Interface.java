@@ -464,9 +464,9 @@ public class Interface extends javax.swing.JFrame {
             alteringValueToCalculateField(valueToCalculateComboBox.getSelectedIndex());
             boolean valid=true; 
             String alert="";
-            int counter=-1;
+            int counter=0;
             for (JTextField field : fields){
-                counter++;
+                
                 if (field.isEditable()==true){
                     if (field.getText().equals("")){
                         field.setBackground(Color.RED);
@@ -480,7 +480,9 @@ public class Interface extends javax.swing.JFrame {
                         alert+="The "+ fieldName(counter)+ " field is less than 0 \n";
                         valid =false;
                     }
-                }    
+                }  
+                              
+                counter++;
             }
             if (!fcField.getText().equals("") && fcField.isEditable() && Double.parseDouble(fcField.getText())>=1){
                 fcField.setBackground(Color.RED);
@@ -515,7 +517,6 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void valueToCalculateComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valueToCalculateComboBoxActionPerformed
-        String valueToCalculate = valueToCalculateComboBox.getSelectedItem().toString();       
         reset();
         int index =valueToCalculateComboBox.getSelectedIndex();
         alteringValueToCalculateField(index);

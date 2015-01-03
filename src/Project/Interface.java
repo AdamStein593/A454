@@ -11,12 +11,14 @@ package Project;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
+
 public class Interface extends javax.swing.JFrame {
 
     /**
      * Creates new form Interface
      */
-    public List fields = new ArrayList();
+    List<JTextField> fields = new ArrayList<JTextField>();
     public Interface() {
         initComponents();
         workingScreen.setVisible(false);
@@ -24,6 +26,13 @@ public class Interface extends javax.swing.JFrame {
         massField.setBackground(Color.GRAY);
         
         fields.add(massField);
+        fields.add(forceField);
+        fields.add(accelerationField);
+        fields.add(fcField);
+        fields.add(angleField);
+        fields.add(frictionForceField);
+        fields.add(reactionField);
+        fields.add(weightField);
         
         
     }
@@ -446,10 +455,11 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        
         workingScreen.setVisible(true);
         inputScreen.setVisible(false);
-        System.out.println(fields.get(0).toString());
+        
+        Question question = new Question(fields,valueToCalculateComboBox);
+        
         
     }//GEN-LAST:event_submitButtonActionPerformed
 

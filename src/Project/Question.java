@@ -118,4 +118,49 @@ public class Question {
             }
         }
         
+        public Answer calcFC(){
+            fc = frictionForce/reaction;
+            String step1= frictionForce + "/" + reaction+ " = " +fc;
+            String explainStep1 =  "friction force/reaction = µ";
+            String step2="";
+            String explainStep2="";
+            return new Answer(step1,step2,explainStep1,explainStep2, fc);
+        }
+        
+        public Answer calcAng(){
+            angle = Math.toDegrees(Math.acos(weight/reaction));
+            String step1 =  "cos̄¹("+weight+ "/" + reaction+ ") = "+ angle;
+            String explainStep1 = "cos̄¹(weight/reaction)= angle";
+            String step2="";
+            String explainStep2="";
+            return new Answer(step1,step2,explainStep1,explainStep2, angle);
+        }
+        
+        public Answer calcFF(){
+            frictionForce = reaction*fc;
+            String step1= reaction + "*" + fc +" = "+ frictionForce;
+            String explainStep1= "reaction*µ = friction force";
+            String step2="";
+            String explainStep2="";
+            return new Answer(step1,step2,explainStep1,explainStep2, frictionForce);
+        }
+        
+        public Answer calcR(){
+            reaction = weight*Math.cos(Math.toRadians(angle));
+            String step1 = weight + "*cos(" + angle + ") = "+ reaction;
+            String explainStep1 = "weight*cos(θ) = reaction";
+            String step2="";
+            String explainStep2="";
+            return new Answer(step1,step2,explainStep1,explainStep2, reaction);           
+        }
+        
+        public Answer calcW(){
+            weight = mass*9.8;
+            String step1 =  mass + "*9.8 = "+ weight;
+            String explainStep1 = "mass*9.8 = weight";
+            String step2="";
+            String explainStep2="";
+            return new Answer(step1,step2,explainStep1,explainStep2, weight);
+        }
+        
 }

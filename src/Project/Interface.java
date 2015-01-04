@@ -502,7 +502,7 @@ public class Interface extends javax.swing.JFrame {
 
 
             if (valid==true){
-                Question question = new Question(fields,valueToCalculateComboBox);
+                Question question = new Question(fields,valueToCalculateComboBox,upButton,downButton);
                 workingScreen.setVisible(true);
                 inputScreen.setVisible(false);
             }

@@ -20,11 +20,14 @@ public class Interface extends javax.swing.JFrame {
      * Creates new form Interface
      */
     List<JTextField> fields = new ArrayList<JTextField>();
+    Answer answer;
     public Interface() {
         initComponents();
         workingScreen.setVisible(false);
         massField.setEditable(false);
         massField.setBackground(Color.GRAY);
+        working1Text.setEditable(false);
+        working2Text.setEditable(false);
         
         fields.add(massField);
         fields.add(forceField);
@@ -34,6 +37,7 @@ public class Interface extends javax.swing.JFrame {
         fields.add(frictionForceField);
         fields.add(reactionField);
         fields.add(weightField);
+        
         
         
     }
@@ -76,8 +80,8 @@ public class Interface extends javax.swing.JFrame {
         valueToCalculateComboBox = new javax.swing.JComboBox();
         valueToCalculateLabel2 = new javax.swing.JLabel();
         workingScreen = new javax.swing.JLayeredPane();
-        explain1Button = new javax.swing.JButton();
         explain2Button = new javax.swing.JButton();
+        explain1Button = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
         titleLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
@@ -245,13 +249,23 @@ public class Interface extends javax.swing.JFrame {
         valueToCalculateLabel2.setBounds(250, 70, 120, 30);
         inputScreen.add(valueToCalculateLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        explain1Button.setText("Explain");
-        explain1Button.setBounds(50, 150, 90, 40);
-        workingScreen.add(explain1Button, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         explain2Button.setText("Explain");
-        explain2Button.setBounds(50, 100, 90, 40);
+        explain2Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                explain2ButtonActionPerformed(evt);
+            }
+        });
+        explain2Button.setBounds(50, 150, 90, 40);
         workingScreen.add(explain2Button, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        explain1Button.setText("Explain");
+        explain1Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                explain1ButtonActionPerformed(evt);
+            }
+        });
+        explain1Button.setBounds(50, 100, 90, 40);
+        workingScreen.add(explain1Button, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         closeButton.setText("Close");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -505,6 +519,13 @@ public class Interface extends javax.swing.JFrame {
                 Question question = new Question(fields,valueToCalculateComboBox,upButton,downButton);
                 workingScreen.setVisible(true);
                 inputScreen.setVisible(false);
+                answer= question.solve();
+                working1Text.setText(answer.getStep1());
+                working2Text.setText(answer.getStep2());
+                valueToCalculateLabel.setText(valueToCalculateComboBox.getSelectedItem().toString());
+                answerTitleLabel.setText(valueToCalculateComboBox.getSelectedItem().toString()+ " to 2s.f.");
+                answerLabel.setText(String.valueOf(answer.getResult()));
+                //do rounding
             }
             else{
                 JOptionPane.showMessageDialog (null, alert ); 
@@ -528,6 +549,16 @@ public class Interface extends javax.swing.JFrame {
         valueToCalculateComboBox.setSelectedItem("Mass");
         slippingDirectionButtonGroup.clearSelection();
     }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void explain2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explain2ButtonActionPerformed
+        if (!answer.getExplainStep2().equals("")){
+            JOptionPane.showMessageDialog (null, answer.getExplainStep2() );
+        }
+    }//GEN-LAST:event_explain2ButtonActionPerformed
+
+    private void explain1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explain1ButtonActionPerformed
+        JOptionPane.showMessageDialog (null, answer.getExplainStep1() );
+    }//GEN-LAST:event_explain1ButtonActionPerformed
 
     /**
      * @param args the command line arguments

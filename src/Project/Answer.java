@@ -16,10 +16,10 @@ public class Answer {
     private double result;
     
     public Answer(String step1, String step2, String explainStep1, String explainStep2, double result){
-        this.step1=step1;
-        this.step1=step2;
+        this.step1=step1;       
+        this.step2=step2;
         this.explainStep1=explainStep1;
-        this.explainStep1=explainStep2;
+        this.explainStep2=explainStep2;
         this.result=result;
     }
     

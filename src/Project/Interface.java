@@ -96,7 +96,7 @@ public class Interface extends javax.swing.JFrame {
         answerLabel = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         accelerationLabel = new javax.swing.JLabel();
-        accelerationValueLabel1 = new javax.swing.JLabel();
+        accelerationValueLabel = new javax.swing.JLabel();
         forceLabel = new javax.swing.JLabel();
         forceValueLabel = new javax.swing.JLabel();
         reactionLabel = new javax.swing.JLabel();
@@ -344,10 +344,10 @@ public class Interface extends javax.swing.JFrame {
         accelerationLabel.setBounds(390, 250, 90, 30);
         workingScreen.add(accelerationLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        accelerationValueLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        accelerationValueLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        accelerationValueLabel1.setBounds(480, 250, 80, 30);
-        workingScreen.add(accelerationValueLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        accelerationValueLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        accelerationValueLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        accelerationValueLabel.setBounds(480, 250, 80, 30);
+        workingScreen.add(accelerationValueLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         forceLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         forceLabel.setText("Force");
@@ -525,7 +525,7 @@ public class Interface extends javax.swing.JFrame {
                 valueToCalculateLabel.setText(valueToCalculateComboBox.getSelectedItem().toString());
                 answerTitleLabel.setText(valueToCalculateComboBox.getSelectedItem().toString()+ " to 2s.f.");
                 answerLabel.setText(String.valueOf(answer.getResult()));
-                //do rounding
+                setValuesOnWorkingOutScreen();
             }
             else{
                 JOptionPane.showMessageDialog (null, alert ); 
@@ -624,6 +624,46 @@ public class Interface extends javax.swing.JFrame {
        fields.get(index).setBackground(Color.GRAY);
     }
     
+    private void setValuesOnWorkingOutScreen(){
+        switch(valueToCalculateComboBox.getSelectedIndex()){
+            case 0: 
+                weightValueLabel.setText(weightLabel.getText());
+                break;
+            case 1: 
+                massValueLabel.setText(massField.getText());
+                accelerationValueLabel.setText(accelerationField.getText());
+                angleValueLabel.setText(angleField.getText());
+                frictionForceValueLabel.setText(frictionForceField.getText());
+                weightValueLabel.setText(weightField.getText());
+                break;
+            case 2: 
+                massValueLabel.setText(massField.getText());
+                forceValueLabel.setText(forceField.getText());
+                angleValueLabel.setText(angleField.getText());
+                frictionForceValueLabel.setText(frictionForceField.getText());
+                weightValueLabel.setText(weightField.getText());
+                break;
+            case 3: 
+                frictionForceValueLabel.setText(frictionForceField.getText());
+                reactionValueLabel.setText(reactionField.getText());
+                break;
+            case 4: 
+                weightValueLabel.setText(weightField.getText());
+                reactionValueLabel.setText(reactionField.getText());
+                break;
+            case 5: 
+                fcValueLabel.setText(fcLabel.getText());
+                reactionValueLabel.setText(reactionField.getText());
+                break;
+            case 6: 
+                weightValueLabel.setText(weightField.getText());
+                angleValueLabel.setText(angleField.getText());
+                break;
+            case 7: 
+                massValueLabel.setText(massField.getText());
+                break;   
+        }
+    }
     public String fieldName(int index){
         switch(index){
             case 0: return "Mass";
@@ -642,7 +682,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JTextField accelerationField;
     private javax.swing.JLabel accelerationLabel;
     private javax.swing.JLabel accelerationLabel2;
-    private javax.swing.JLabel accelerationValueLabel1;
+    private javax.swing.JLabel accelerationValueLabel;
     private javax.swing.JTextField angleField;
     private javax.swing.JLabel angleLabel;
     private javax.swing.JLabel angleLabel2;

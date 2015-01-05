@@ -4,6 +4,9 @@
  */
 package Project;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  *
  * @author Adam
@@ -20,7 +23,10 @@ public class Answer {
         this.step2=step2;
         this.explainStep1=explainStep1;
         this.explainStep2=explainStep2;
-        this.result=result;
+        BigDecimal bd = new BigDecimal(result);
+        bd = bd.round(new MathContext(2));
+        this.result= bd.doubleValue();
+        
     }
     
     public String getStep1(){
@@ -38,5 +44,7 @@ public class Answer {
     public double getResult(){
         return result;
     }
+    
+    
     
 }

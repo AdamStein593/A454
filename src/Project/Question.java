@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Project;
 
 /**
- *
+ *An object containing all the details from the text fields on the input screen
  * @author Adam
  */
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -16,6 +11,7 @@ import javax.swing.JRadioButton;
 
 
 public class Question {
+        //decleration of global variables
         private double mass;
         private double force;
         private double acceleration;
@@ -28,9 +24,11 @@ public class Question {
         private String slippingDirection;
         
         public Question(List <JTextField> fields,JComboBox valueToCalculateComboBox,JRadioButton upButton, JRadioButton downButton){
+            //constructor
             valueToCalculate= valueToCalculateComboBox.getSelectedItem().toString();
             if (upButton.isSelected()==true){slippingDirection ="up";}
             else{slippingDirection="down";}
+            //value to calculate field set to 0 to prevent error when converting every field to a double
             switch(valueToCalculate){
                 case "Mass":fields.get(0).setText("0");break;
                 case "Force":fields.get(1).setText("0");break;
@@ -42,6 +40,7 @@ public class Question {
                 case "Weight":fields.get(7).setText("0");break;
             }
             
+            //converting String values of text fields into doubles
             mass=Double.parseDouble(fields.get(0).getText());
             force=Double.parseDouble(fields.get(1).getText());
             acceleration=Double.parseDouble(fields.get(2).getText());
@@ -52,8 +51,13 @@ public class Question {
             weight=Double.parseDouble(fields.get(7).getText());
         }
         
+        /**
+         * Function to solve a question object and return an Answer object
+         * @return an Answer that will be used in the display on the working out screen
+         */
         public Answer solve(){
             Answer answer;
+            //Function called depends on value to valueToCalculate
             switch(valueToCalculate){
                 case "Mass":answer=calcM();break;
                 case "Force":answer=calcF();break;
@@ -62,11 +66,15 @@ public class Question {
                 case "θ":answer=calcAng();break;
                 case "Friction ForceFriction Force":answer=calcFF();break;
                 case "Reaction":answer=calcR();break;
+                //default ncessary to ensure an answer is always returned
                 default:answer=calcW();break;
             }
             return answer;
         }
-        
+        /**
+         * Function to calculate Mass using the weight
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcM(){
             mass = weight/9.8;
             String step1 = weight+ "/ 9.8 = "+mass;  
@@ -78,6 +86,10 @@ public class Question {
 
         }
         
+        /**
+         * Function to calculate Force from mass, acceleration, angle, friction force and weight
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcF(){
             if (slippingDirection .equals("up")){	
                 force = (acceleration*mass)- (weight*Math.sin(Math.toRadians(angle)))-frictionForce; 
@@ -98,7 +110,10 @@ public class Question {
             }
 
         }
-        
+        /**
+         * Function to calculate Acceleration from mass, force, angle, friction force and weight
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcA(){
             if (slippingDirection .equals("up")){
                 acceleration = (force-frictionForce-weight*Math.sin(Math.toRadians(angle)))/mass;
@@ -117,7 +132,10 @@ public class Question {
                 return new Answer(step1,step2,explainStep1,explainStep2, acceleration);
             }
         }
-        
+        /**
+         * Function to calculate µ from friction force and reaction
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcFC(){
             fc = frictionForce/reaction;
             String step1= frictionForce + "/" + reaction+ " = " +fc;
@@ -126,7 +144,10 @@ public class Question {
             String explainStep2="";
             return new Answer(step1,step2,explainStep1,explainStep2, fc);
         }
-        
+        /**
+         * Function to calculate θ from weight and reaction
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcAng(){
             angle = Math.toDegrees(Math.acos(weight/reaction));
             String step1 =  "cos̄¹("+weight+ "/" + reaction+ ") = "+ angle;
@@ -136,6 +157,10 @@ public class Question {
             return new Answer(step1,step2,explainStep1,explainStep2, angle);
         }
         
+        /**
+         * Function to calculate friction force from µ and reaction
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcFF(){
             frictionForce = reaction*fc;
             String step1= reaction + "*" + fc +" = "+ frictionForce;
@@ -143,8 +168,11 @@ public class Question {
             String step2="";
             String explainStep2="";
             return new Answer(step1,step2,explainStep1,explainStep2, frictionForce);
-        }
-        
+        }        
+        /**
+         * Function to calculate reaction from weight and θ
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcR(){
             reaction = weight*Math.cos(Math.toRadians(angle));
             String step1 = weight + "*cos(" + angle + ") = "+ reaction;
@@ -153,7 +181,10 @@ public class Question {
             String explainStep2="";
             return new Answer(step1,step2,explainStep1,explainStep2, reaction);           
         }
-        
+        /**
+         * Function to calculate weight from mass
+         * @return an answer object with a value for mass and information on working out
+         */
         public Answer calcW(){
             weight = mass*9.8;
             String step1 =  mass + "*9.8 = "+ weight;

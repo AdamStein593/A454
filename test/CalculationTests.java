@@ -107,4 +107,59 @@ public class CalculationTests {
                 
             }
     }
+    
+    @Test
+    public void testCalcFC(){
+        fc = frictionForce/reaction;
+            String step1= frictionForce + "/" + reaction+ " = " +fc;
+            String explainStep1 =  "friction force/reaction = µ";
+            String step2="";
+            String explainStep2="";
+            assertEquals(fc,0,0.01); 
+            assertEquals(step1,"0.0/84.9 = 0.0");
+    }
+    
+    @Test
+    public void testCalcAng(){
+            angle = (double)Math.round(Math.toDegrees(Math.acos(reaction/weight))*10)/10;
+            String step1 =  "cos̄¹("+reaction+ "/" + weight+ ") = "+ angle;
+            String explainStep1 = "cos̄¹(reaction/weight)= angle";
+            String step2="";
+            String explainStep2="";
+            assertEquals(angle,30.0,0.01); 
+            assertEquals(step1,"cos̄¹(84.9/98.0) = 30.0");
+    }
+    
+    @Test
+    public void testCalcFF(){
+            frictionForce = reaction*fc;
+            String step1= reaction + "*" + fc +" = "+ frictionForce;
+            String explainStep1= "reaction*µ = friction force";
+            String step2="";
+            String explainStep2=""; 
+            assertEquals(frictionForce,0.0,0.01); 
+            assertEquals(step1,"84.9*0.0 = 0.0");
+    }
+    
+    @Test
+    public void testCalcR(){
+        reaction = (double)Math.round(weight*Math.cos(Math.toRadians(angle))*10)/10;
+            String step1 = weight + "*cos(" + angle + ") = "+ reaction;
+            String explainStep1 = "weight*cos(θ) = reaction";
+            String step2="";
+            String explainStep2="";
+            assertEquals(reaction,84.9,0.01); 
+            assertEquals(step1,"98.0*cos(30.0) = 84.9");
+    }
+    
+    @Test
+    public void testCalcW(){
+            weight = mass*9.8;
+            String step1 =  mass + "*9.8 = "+ weight;
+            String explainStep1 = "mass*9.8 = weight";
+            String step2="";
+            String explainStep2=""; 
+            assertEquals(weight,98.0,0.01); 
+            assertEquals(step1,"10.0*9.8 = 98.0");
+    }
 }

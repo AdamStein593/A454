@@ -151,9 +151,9 @@ public class Question {
          * @return an answer object with a value for mass and information on working out
          */
         public Answer calcAng(){
-            angle = Math.toDegrees(Math.acos(weight/reaction));
-            String step1 =  "cos̄¹("+weight+ "/" + reaction+ ") = "+ angle;
-            String explainStep1 = "cos̄¹(weight/reaction)= angle";
+            angle = (double)Math.round(Math.toDegrees(Math.acos(reaction/weight))*10)/10;
+            String step1 =  "cos̄¹("+reaction+ "/" + weight+ ") = "+ angle;
+            String explainStep1 = "cos̄¹(reaction/weight)= angle";
             String step2="";
             String explainStep2="";
             return new Answer(step1,step2,explainStep1,explainStep2, angle);
@@ -176,7 +176,7 @@ public class Question {
          * @return an answer object with a value for mass and information on working out
          */
         public Answer calcR(){
-            reaction = weight*Math.cos(Math.toRadians(angle));
+            reaction = (double)Math.round(weight*Math.cos(Math.toRadians(angle))*10)/10;
             String step1 = weight + "*cos(" + angle + ") = "+ reaction;
             String explainStep1 = "weight*cos(θ) = reaction";
             String step2="";

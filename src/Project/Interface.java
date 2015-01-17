@@ -521,7 +521,8 @@ public class Interface extends javax.swing.JFrame {
                     } //validation to ensure that fields are greater than or equal to 0
                     /*else if is used because only fields that aren't empty need to be 
                      checked and this prevents an error from preforming Double.parseDouble
-                     on an empty field*/ else if (Double.parseDouble(field.getText()) < 0) {
+                     on an empty field*/ 
+                    else if (Double.parseDouble(field.getText()) < 0) {
                         field.setBackground(Color.RED);
                         alert += "The " + fieldName(counter) + " field is less than 0 \n";
                         valid = false;
@@ -701,7 +702,7 @@ public class Interface extends javax.swing.JFrame {
     private void setValuesOnWorkingOutScreen() {
         switch (valueToCalculateComboBox.getSelectedIndex()) {
             case 0:
-                weightValueLabel.setText(weightLabel.getText());
+                weightValueLabel.setText(weightField.getText());
                 break;
             case 1:
                 massValueLabel.setText(massField.getText());

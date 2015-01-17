@@ -4,6 +4,7 @@ package Project;
  *An object containing all the details from the text fields on the input screen
  * @author Adam
  */
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -92,19 +93,20 @@ public class Question {
          */
         public Answer calcF(){
             if (slippingDirection .equals("up")){	
-                force = (acceleration*mass)- (weight*Math.sin(Math.toRadians(angle)))-frictionForce; 
+                force = (acceleration*mass)- ((double)Math.round(weight*Math.sin(Math.toRadians(angle))*10)/10)-frictionForce; 
                 String step1 = acceleration + "*" + mass+ " = "+ acceleration*mass;
                 String explainStep1 = "acceleration*mass = resultant force";
-                String step2 = acceleration*mass + " – "+ weight + "*sin" +angle + " – "+ frictionForce+ " = "+ force;
+                String step2 = acceleration*mass + " – "+ weight + "*sin(" +angle + ") – "+ frictionForce+ " = "+ force;
                 String explainStep2 = "resultant force - weight*sinθ – friction force = force";
                 
                 return new Answer(step1,step2,explainStep1,explainStep2, force);
             }
             else{
-                force = (weight*Math.sin(Math.toRadians(angle)))- (acceleration*mass)- frictionForce;
+                
+                force = ((double)Math.round(weight*Math.sin(Math.toRadians(angle))*10)/10)- (acceleration*mass)- frictionForce;
                 String step1 = acceleration + "*" + mass+ " = "+ acceleration*mass;
                 String explainStep1 = "acceleration*mass = resultant force";
-                String step2 = weight + "*sin" +angle + " – "+  acceleration*mass + " – "+ frictionForce+ " = "+force;
+                String step2 = weight + "*sin(" +angle + ") – "+  acceleration*mass + " – "+ frictionForce+ " = "+force;
                 String explainStep2 = "weight*sinθ – resulatnt force– friction force = force";
                 return new Answer(step1,step2,explainStep1,explainStep2, force);
             }
@@ -116,18 +118,18 @@ public class Question {
          */
         public Answer calcA(){
             if (slippingDirection .equals("up")){
-                acceleration = (force-frictionForce-weight*Math.sin(Math.toRadians(angle)))/mass;
-                String step1 = force+ " – " +frictionForce+ " – "+weight  + "* sin"+angle + " = "+  (force-frictionForce -weight*Math.sin(Math.toRadians(angle)));
+                acceleration = (force-frictionForce-(double)Math.round(weight*Math.sin(Math.toRadians(angle))*10)/10)/mass;
+                String step1 = force+ " – " +frictionForce+ " – "+weight  + "*sin("+angle + ") = "+  (double)Math.round((force-frictionForce -weight*Math.sin(Math.toRadians(angle)))*10)/10;
                 String explainStep1 = "force – friction force – weight * sinθ = resultant force";
-                String step2 = (force -weight*Math.sin(Math.toRadians(angle)) - frictionForce)+ "/" + mass + " = " + acceleration;
+                String step2 = (double)Math.round((force -weight*Math.sin(Math.toRadians(angle)) - frictionForce)*10)/10+ "/" + mass + " = " + acceleration;
                 String explainStep2 = "resultant force / mass = acceleration";
                 return new Answer(step1,step2,explainStep1,explainStep2, acceleration);
             }
             else{
-                acceleration = (weight*Math.sin(Math.toRadians(angle))- force-frictionForce)/mass;
-                String step1 = weight  + "* sin"+angle + " – " +frictionForce+ " – "+ force + " = "+  (weight*Math.sin(Math.toRadians(angle))- force-frictionForce);
+                acceleration = ((double)Math.round(weight*Math.sin(Math.toRadians(angle))*10)/10- force-frictionForce)/mass;
+                String step1 = weight  + "*sin("+angle + ") – " +frictionForce+ " – "+ force + " = "+  (double)Math.round((weight*Math.sin(Math.toRadians(angle))- force-frictionForce)*10)/10;
                 String explainStep1 = "weight * sinθ – friction force – force = resultant force";
-                String step2 = (weight*Math.sin(Math.toRadians(angle))- force-frictionForce)+ "/" + mass + " = "+ acceleration;
+                String step2 = (double)Math.round((weight*Math.sin(Math.toRadians(angle))- force-frictionForce)*10)/10+ "/" + mass + " = "+ acceleration;
                 String explainStep2 = "resultant force / mass = acceleration";
                 return new Answer(step1,step2,explainStep1,explainStep2, acceleration);
             }

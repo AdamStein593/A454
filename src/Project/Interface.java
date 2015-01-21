@@ -700,6 +700,14 @@ public class Interface extends javax.swing.JFrame {
      * sub routine that displays all the values used in the calculation on the worrking out screen
      */
     private void setValuesOnWorkingOutScreen() {
+        massValueLabel.setText("");
+        forceValueLabel.setText("");
+        accelerationValueLabel.setText("");
+        fcValueLabel.setText("");
+        angleValueLabel.setText("");
+        frictionForceValueLabel.setText("");
+        reactionValueLabel.setText("");
+        weightValueLabel.setText("");
         switch (valueToCalculateComboBox.getSelectedIndex()) {
             case 0:
                 weightValueLabel.setText(weightField.getText());
@@ -727,7 +735,7 @@ public class Interface extends javax.swing.JFrame {
                 reactionValueLabel.setText(reactionField.getText());
                 break;
             case 5:
-                fcValueLabel.setText(fcLabel.getText());
+                fcValueLabel.setText(fcField.getText());
                 reactionValueLabel.setText(reactionField.getText());
                 break;
             case 6:

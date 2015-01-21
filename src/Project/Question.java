@@ -36,7 +36,7 @@ public class Question {
                 case "Acceleration":fields.get(2).setText("0");break;
                 case "µ":fields.get(3).setText("0");break;
                 case "θ":fields.get(4).setText("0");break;
-                case "Friction ForceFriction Force":fields.get(5).setText("0");break;
+                case "Friction Force":fields.get(5).setText("0");break;
                 case "Reaction":fields.get(6).setText("0");break;
                 case "Weight":fields.get(7).setText("0");break;
             }
@@ -65,7 +65,7 @@ public class Question {
                 case "Acceleration":answer=calcA();break;
                 case "µ":answer=calcFC();break;
                 case "θ":answer=calcAng();break;
-                case "Friction ForceFriction Force":answer=calcFF();break;
+                case "Friction Force":answer=calcFF();break;
                 case "Reaction":answer=calcR();break;
                 //default ncessary to ensure an answer is always returned
                 default:answer=calcW();break;
@@ -107,7 +107,7 @@ public class Question {
                 String step1 = acceleration + "*" + mass+ " = "+ acceleration*mass;
                 String explainStep1 = "acceleration*mass = resultant force";
                 String step2 = weight + "*sin(" +angle + ") – "+  acceleration*mass + " – "+ frictionForce+ " = "+force;
-                String explainStep2 = "weight*sinθ – resulatnt force– friction force = force";
+                String explainStep2 = "weight*sinθ – resultant force– friction force = force";
                 return new Answer(step1,step2,explainStep1,explainStep2, force);
             }
 
